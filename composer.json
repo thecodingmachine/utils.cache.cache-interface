@@ -1,7 +1,7 @@
 {
     "name": "mouf/utils.cache.cache-interface",
-    "description": "TODO",
-    "keywords": ["security", "user", "user management"],
+    "description": "This package only contains the interface that must be implemented by caching classes. Unless you want to implement your own caching method, you should import a cache package that will use this interface. For instance, common.utils.session-cache, or common.utils.file-cache.",
+    "keywords": ["mouf", "cache", "interface"],
     "homepage": "https://github.com/thecodingmachine/utils.cache.cache-interface",
     "type": "library",
     "license": "MIT",
