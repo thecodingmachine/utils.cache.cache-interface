@@ -74,13 +74,9 @@ class PurgeCacheController extends Controller {
 		
 		$response = self::performRequest($url);
 
-		$obj = unserialize($response);
-		
-		if ($obj === false) {
+		if (!empty($response)) {
 			throw new \Exception("Unable to unserialize message:\n".$response."\n<br/>URL in error: <a href='".plainstring_to_htmlprotected($url)."'>".plainstring_to_htmlprotected($url)."</a>");
 		}
-		
-		return $obj;
 	}
 	
 	private static function performRequest($url, $post = array()) {
