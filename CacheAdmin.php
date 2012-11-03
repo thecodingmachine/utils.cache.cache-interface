@@ -1,11 +1,7 @@
 <?php
 
 use Mouf\Html\HtmlElement\HtmlFromFile;
-
-use Mouf\Html\HtmlElement\HtmlString;
-
 use Mouf\MoufManager;
-
 use Mouf\MoufUtils;
 
 // Because cache-interface can be used in both the application and in Mouf admin, there are 2

@@ -1,6 +1,12 @@
 <?php
 namespace Mouf\Utils\Cache\Admin\Controllers;
 
+use Mouf\Reflection\MoufReflectionProxy;
+
+use Mouf\Html\HtmlElement\HtmlBlock;
+
+use Mouf\MoufManager;
+
 use Mouf\Mvc\Splash\Controllers\Controller;
 
 /**
@@ -19,6 +25,12 @@ class PurgeCacheController extends Controller {
 	 */
 	public $template;
 	
+	/**
+	 * 
+	 * @var HtmlBlock
+	 */
+	public $content;
+	
 	protected $selfedit;
 	protected $done;
 	
@@ -29,13 +41,13 @@ class PurgeCacheController extends Controller {
 	 * @Logged
 	 */
 	public function defaultAction($selfedit = "false", $done = "false") {
-		$menu = MoufManager::getMoufManager()->getInstance('cacheInterfacePurgeAllCachesMenuItem');
+		$menu = MoufManager::getMoufManager()->getInstance('utilsCacheInterfacePurgeAllCachesMenuItem');
 		$menu->setIsActive(true);
 		
 		$this->selfedit = $selfedit;
 		$this->done = $done;
-		$this->template->addContentFile(dirname(__FILE__)."/../views/purge.php", $this);
-		$this->template->draw();
+		$this->content->addFile(dirname(__FILE__)."/../../../../../views/purge.php", $this);
+		$this->template->toHtml();
 	}
 
 	/**
@@ -58,14 +70,14 @@ class PurgeCacheController extends Controller {
 	 * @param string $selfedit
 	 */
 	public function doPurge($selfedit = "false") {
-		$url = MoufReflectionProxy::getLocalUrlToProject()."plugins/utils/cache/cache-interface/1.0/admin/direct/purge_all.php?selfedit=".urlencode($selfedit);
+		$url = MoufReflectionProxy::getLocalUrlToProject()."../../../vendor/mouf/utils.cache.cache-interface/src/direct/purge_all.php?selfedit=".urlencode($selfedit);
 		
 		$response = self::performRequest($url);
 
 		$obj = unserialize($response);
 		
 		if ($obj === false) {
-			throw new Exception("Unable to unserialize message:\n".$response."\n<br/>URL in error: <a href='".plainstring_to_htmlprotected($url)."'>".plainstring_to_htmlprotected($url)."</a>");
+			throw new \Exception("Unable to unserialize message:\n".$response."\n<br/>URL in error: <a href='".plainstring_to_htmlprotected($url)."'>".plainstring_to_htmlprotected($url)."</a>");
 		}
 		
 		return $obj;
