@@ -13,6 +13,7 @@ require_once 'src/Mouf/Utils/Cache/Admin/Controllers/PurgeCacheController.php';
 MoufUtils::registerMainMenu('utilsMainMenu', 'Utils', null, 'mainMenu', 200);
 MoufUtils::registerMenuItem('utilsCacheInterfaceMenu', 'Cache management', null, 'utilsMainMenu', 50);
 MoufUtils::registerMenuItem('utilsCacheInterfacePurgeAllCachesMenuItem', 'Purge all caches', 'purgeCaches/', 'utilsCacheInterfaceMenu', 10);
+MoufUtils::registerChooseInstanceMenuItem('utilsCacheInterfacePurgeOneCacheMenuItem', 'Purge a cache instance', 'purgeCacheInstance/', 'Mouf\\Utils\\Cache\\CacheInterface', 'utilsCacheInterfaceMenu', 10);
 
 $moufManager = MoufManager::getMoufManager();
 $navbar = $moufManager->getInstance("navBar");
