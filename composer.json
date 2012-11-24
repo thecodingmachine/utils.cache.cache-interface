@@ -3,7 +3,7 @@
     "description": "This package only contains the interface that must be implemented by caching classes. Unless you want to implement your own caching method, you should import a cache package that will use this interface. For instance, common.utils.session-cache, or common.utils.file-cache.",
     "keywords": ["mouf", "cache", "interface"],
     "homepage": "https://github.com/thecodingmachine/utils.cache.cache-interface",
-    "type": "library",
+    "type": "mouf-library",
     "license": "MIT",
     "authors": [
         {
