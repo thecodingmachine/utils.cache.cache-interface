@@ -24,7 +24,8 @@
     	"mouf": {
     		"require-admin": [
     			"CacheAdmin.php"
-    		]
+    		],
+    		"logo": "logo.png"
     	}
     }
 }
