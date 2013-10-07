@@ -10,6 +10,7 @@ use Mouf\Html\HtmlElement\HtmlBlock;
 use Mouf\MoufManager;
 
 use Mouf\Mvc\Splash\Controllers\Controller;
+use Mouf\ClassProxy;
 
 /**
  * The controller to purge all caches.
@@ -84,6 +85,7 @@ class PurgeCacheController extends Controller {
 	}
 	
 	
+	
 	/**
 	 * Finds all the instances implementing the CacheInterface, and calls the "purge" method on them.
 	 * 
@@ -91,34 +93,8 @@ class PurgeCacheController extends Controller {
 	 * @param string $selfedit
 	 */
 	public function doPurge($selfedit = "false") {
-		$url = MoufReflectionProxy::getLocalUrlToProject()."../../../vendor/mouf/utils.cache.cache-interface/src/direct/purge_all.php?selfedit=".urlencode($selfedit);
-		
-		$response = self::performRequest($url);
-
-		if (!empty($response)) {
-			throw new \Exception("Unable to unserialize message:\n".$response."\n<br/>URL in error: <a href='".plainstring_to_htmlprotected($url)."'>".plainstring_to_htmlprotected($url)."</a>");
-		}
-	}
-	
-	private static function performRequest($url, $post = array()) {
-		// preparation de l'envoi
-		$ch = curl_init();
-				
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		if($post) {
-			curl_setopt($ch, CURLOPT_POST, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-		} else
-			curl_setopt($ch, CURLOPT_POST, false);
-		$response = curl_exec($ch );
-		
-		if( curl_error($ch) ) { 
-			throw new Exception("An error occured: ".curl_error($ch));
-		}
-		curl_close( $ch );
-		
-		return $response;
+		$purgeCacheService = new ClassProxy("Mouf\\Utils\\Cache\\Service\\PurgeCacheService");
+		$purgeCacheService->purgeAll();
 	}
 		
 }
