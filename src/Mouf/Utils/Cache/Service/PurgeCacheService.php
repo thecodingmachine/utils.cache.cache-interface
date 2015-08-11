@@ -27,8 +27,13 @@ class PurgeCacheService {
 		foreach ($instances as $instanceName) {
 			$cacheService = $moufManager->getInstance($instanceName);
 			/* @var $cacheService CacheInterface */
-		
-			$cacheService->purgeAll();
+			try {
+				$cacheService->purgeAll();	
+			}
+			catch (\Exception $ex) {
+				// FIXME: Throw error on GUI and/or in PHP error log !
+				// EXAMPLE: $log->error($instanceName + " have throw an exception '" + $ex->getMessage() + "' !");
+			}
 		}
 		
 	}
