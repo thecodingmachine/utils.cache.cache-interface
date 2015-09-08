@@ -10,6 +10,7 @@ use Mouf\Html\HtmlElement\HtmlBlock;
 use Mouf\MoufManager;
 
 use Mouf\Mvc\Splash\Controllers\Controller;
+use Mouf\Utils\CompositeException;
 
 /**
  * This service can purge the cache of ALL cache instances (implementing CacheInterface) declared in Mouf.
@@ -23,14 +24,23 @@ class PurgeCacheService {
 
 		$moufManager = MoufManager::getMoufManager();
 		$instances = $moufManager->findInstances("Mouf\\Utils\\Cache\\CacheInterface");
-		
+
+		$compositeException = new CompositeException();
+
 		foreach ($instances as $instanceName) {
-			$cacheService = $moufManager->getInstance($instanceName);
-			/* @var $cacheService CacheInterface */
-		
-			$cacheService->purgeAll();
+			try {
+				$cacheService = $moufManager->getInstance($instanceName);
+				/* @var $cacheService CacheInterface */
+
+				$cacheService->purgeAll();
+			} catch (\Exception $e) {
+				$compositeException->add($e);
+			}
 		}
-		
+
+		if (!$compositeException->isEmpty()) {
+			throw $compositeException;
+		}
 	}
 		
 }
