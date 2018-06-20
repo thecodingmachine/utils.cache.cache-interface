@@ -1,6 +1,9 @@
 <?php
 namespace Mouf\Utils\Cache;
 
+/**
+ * @deprecated Use PSR-16 instead.
+ */
 interface CacheInterface {
 	
 	/**
