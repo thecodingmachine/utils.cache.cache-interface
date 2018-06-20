@@ -14,7 +14,8 @@
     ],
     "require": {
     	"php": ">=5.3.0",
-        "mouf/utils.composite-exception": "~1.0"
+        "mouf/utils.composite-exception": "^1",
+        "mouf/utils.cache.purge-ui": "^1"
     },
     "autoload": {
         "psr-0": {
@@ -23,9 +24,6 @@
     },
     "extra": {
     	"mouf": {
-    		"require-admin": [
-    			"CacheAdmin.php"
-    		],
     		"logo": "logo.png"
     	}
     }
